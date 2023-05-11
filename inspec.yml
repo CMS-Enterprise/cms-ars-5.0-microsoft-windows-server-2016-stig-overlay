@@ -12,7 +12,7 @@ depends:
   - name: microsoft-windows-server-2016-stig-baseline
     url: https://github.cms/mitre/microsoft-windows-server-2016-stig-baseline/archive/master.tar.gz
 
-# inputs:
+inputs:
 #   - name: system_categorization
 #     desc: "Selected system baseline based on the environment variable"
 #     type: String
