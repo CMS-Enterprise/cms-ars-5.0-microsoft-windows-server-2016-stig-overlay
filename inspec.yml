@@ -1,0 +1,187 @@
+name: cms-ars-5.0-microsoft-windows-server-2016-stig-overlay
+title: cms-ars-5.0-microsoft-windows-server-2016-stig-overlay
+maintainer: CMS SAF Team
+copyright: 
+copyright_email: saf@cms.hhs.gov
+license: Apache-2.0
+summary: CMS ARS 5.0 Overlay InSpec Validation Profile for Windows Server 2016 STIG
+version: 1.7.0
+inspec_version: ">= 4.0"
+
+depends:
+  - name: microsoft-windows-server-2016-stig-baseline
+    url: https://github.cms/mitre/microsoft-windows-server-2016-stig-baseline/archive/master.tar.gz
+
+# inputs:
+#   - name: system_categorization
+#     desc: "Selected system baseline based on the environment variable"
+#     type: String
+#     value: <%= ENV['BASELINE'].nil? ? 'Moderate (Default)' : ENV['BASELINE'] %> 
+
+#   - name: org_name
+#     desc: "Name of the organization running this profile"
+#     type: string
+#     value: "CMS"
+#     profile: baseline-profile-name
+
+#     # Example input override
+#   - name: min_password_length # Baseline Control ID
+#     desc: "Minimum password length"
+#     type: Numeric
+#     <% if ['High-HVA', 'Moderate-HVA', 'Low-HVA'].include? ENV['BASELINE'] %>
+#     value: 20
+#     <% elsif ['High', 'Moderate', 'Low'].include? ENV['BASELINE'] || ENV['BASELINE'].nil? %>
+#     value: 15 # same as the baseline parameter (Feb 2023)
+#     <% end %>
+#     profile: baseline-profile-name
+
+  - name: overlay_controls
+    desc: 'List of inapplicable controls/requirements in ARS 5.0 based on the system categorization'
+    type: Array
+    <% if ENV['BASELINE'] == 'High-HVA' %>
+    value: []
+    <% elsif ENV['BASELINE'] == 'High' %>
+    value: []
+    <% elsif ENV['BASELINE'] == 'Moderate-HVA' %>
+    value: []
+    <% elsif ENV['BASELINE'] == 'Moderate' || ENV['BASELINE'].nil? %> # Default
+    value: 
+      - "V-73487" # SC-03 Requirement NA
+      - "V-73495" # SC-03 Requirement NA
+      - "V-73709" # SC-03 Requirement NA
+      - "V-73711" # SC-03 Requirement NA
+      - "V-73715" # SC-03 Requirement NA
+      - "V-73717" # SC-03 Requirement NA
+      - "V-73721" # SC-03 Requirement NA
+    <% elsif ENV['BASELINE'] == 'Low-HVA' %>
+    value:
+      - "V-73219" # AC-06(10) Requirement NA
+      - "V-73221" # AC-06(10) Requirement NA
+      - "V-73255" # AC-06(10) Requirement NA
+      - "V-73369" # AC-06(10) Requirement NA
+      - "V-73371" # AC-06(10) Requirement NA
+      - "V-73373" # AC-06(10) Requirement NA
+      - "V-73375" # AC-06(10) Requirement NA
+      - "V-73377" # AC-06(10) Requirement NA
+      - "V-73677" # AC-06(10) Requirement NA
+      - "V-73729" # AC-06(10) Requirement NA
+      - "V-73735" # AC-06(10) Requirement NA
+      - "V-73737" # AC-06(10) Requirement NA
+      - "V-73743" # AC-06(10) Requirement NA
+      - "V-73745" # AC-06(10) Requirement NA
+      - "V-73747" # AC-06(10) Requirement NA
+      - "V-73749" # AC-06(10) Requirement NA
+      - "V-73751" # AC-06(10) Requirement NA
+      - "V-73753" # AC-06(10) Requirement NA
+      - "V-73755" # AC-06(10) Requirement NA
+      - "V-73777" # AC-06(10) Requirement NA
+      - "V-73779" # AC-06(10) Requirement NA
+      - "V-73781" # AC-06(10) Requirement NA
+      - "V-73783" # AC-06(10) Requirement NA
+      - "V-73785" # AC-06(10) Requirement NA
+      - "V-73787" # AC-06(10) Requirement NA
+      - "V-73789" # AC-06(10) Requirement NA
+      - "V-73791" # AC-06(10) Requirement NA
+      - "V-73795" # AC-06(10) Requirement NA
+      - "V-73797" # AC-06(10) Requirement NA
+      - "V-73799" # AC-06(10) Requirement NA
+      - "V-73801" # AC-06(10) Requirement NA
+      - "V-73803" # AC-06(10) Requirement NA
+      - "V-73645" # AC-11 Requirement NA
+      - "V-73725" # AC-11 Requirement NA
+      - "V-73723" # AC-11(01) Requirement NA
+      - "V-73659" # AC-12 SC-10 Requirement NA
+      - "V-73773" # AC-17(01) Requirement NA
+      - "V-73775" # AC-17(01) Requirement NA
+      - "V-73511" # AU-03(01) Requirement NA
+      - "V-73591" # AU-03(01) Requirement NA
+      - "V-73545" # CM-07(02) Requirement NA
+      - "V-73547" # CM-07(02) Requirement NA
+      - "V-73549" # CM-07(02) Requirement NA
+      - "V-73235" # CM-07(05) Requirement NA
+      - "V-73611" # IA-05(02) Requirement NA
+      - "V-73613" # IA-05(02) Requirement NA
+      - "V-73615" # IA-05(02) Requirement NA
+      - "V-73699" # IA-05(02) Requirement NA
+      - "V-73569" # SC-04 Requirement NA
+      - "V-73675" # SC-04 Requirement NA
+      - "V-73689" # SC-10 Requirement NA
+      - "V-73281" # SI-02(02) Requirement NA
+      - "V-73561" # SI-16 Requirement NA
+    <% elsif ENV['BASELINE'] == 'Low' %>
+    value:
+      - "V-73283" # AC-02(02) Requirement NA
+      - "V-73285" # AC-02(02) Requirement NA
+      - "V-73219" # AC-06(10) Requirement NA
+      - "V-73221" # AC-06(10) Requirement NA
+      - "V-73255" # AC-06(10) Requirement NA
+      - "V-73369" # AC-06(10) Requirement NA
+      - "V-73371" # AC-06(10) Requirement NA
+      - "V-73373" # AC-06(10) Requirement NA
+      - "V-73375" # AC-06(10) Requirement NA
+      - "V-73377" # AC-06(10) Requirement NA
+      - "V-73677" # AC-06(10) Requirement NA
+      - "V-73729" # AC-06(10) Requirement NA
+      - "V-73735" # AC-06(10) Requirement NA
+      - "V-73737" # AC-06(10) Requirement NA
+      - "V-73743" # AC-06(10) Requirement NA
+      - "V-73745" # AC-06(10) Requirement NA
+      - "V-73747" # AC-06(10) Requirement NA
+      - "V-73749" # AC-06(10) Requirement NA
+      - "V-73751" # AC-06(10) Requirement NA
+      - "V-73753" # AC-06(10) Requirement NA
+      - "V-73755" # AC-06(10) Requirement NA
+      - "V-73777" # AC-06(10) Requirement NA
+      - "V-73779" # AC-06(10) Requirement NA
+      - "V-73781" # AC-06(10) Requirement NA
+      - "V-73783" # AC-06(10) Requirement NA
+      - "V-73785" # AC-06(10) Requirement NA
+      - "V-73787" # AC-06(10) Requirement NA
+      - "V-73789" # AC-06(10) Requirement NA
+      - "V-73791" # AC-06(10) Requirement NA
+      - "V-73795" # AC-06(10) Requirement NA
+      - "V-73797" # AC-06(10) Requirement NA
+      - "V-73799" # AC-06(10) Requirement NA
+      - "V-73801" # AC-06(10) Requirement NA
+      - "V-73803" # AC-06(10) Requirement NA
+      - "V-73645" # AC-11 Requirement NA
+      - "V-73725" # AC-11 Requirement NA
+      - "V-73723" # AC-11(01) Requirement NA
+      - "V-73773" # AC-17(01) Requirement NA
+      - "V-73775" # AC-17(01) Requirement NA
+      - "V-73573" # AC-17(02) Requirement NA
+      - "V-73575" # AC-17(02) Requirement NA
+      - "V-73511" # AU-03(01) Requirement NA
+      - "V-73591" # AU-03(01) Requirement NA
+      - "V-73545" # CM-07(02) Requirement NA
+      - "V-73547" # CM-07(02) Requirement NA
+      - "V-73549" # CM-07(02) Requirement NA
+      - "V-73235" # CM-07(05) Requirement NA
+      - "V-73611" # IA-05(02) Requirement NA
+      - "V-73613" # IA-05(02) Requirement NA
+      - "V-73615" # IA-05(02) Requirement NA
+      - "V-73699" # IA-05(02) Requirement NA
+      - "V-73709" # SC-03 Requirement NA
+      - "V-73711" # SC-03 Requirement NA
+      - "V-73715" # SC-03 Requirement NA
+      - "V-73717" # SC-03 Requirement NA
+      - "V-73721" # SC-03 Requirement NA
+      - "V-73267" # SC-04 Requirement NA
+      - "V-73379" # SC-04 Requirement NA
+      - "V-73569" # SC-04 Requirement NA
+      - "V-73675" # SC-04 Requirement NA
+      - "V-73633" # SC-08 SC-08(01) Requirement NA
+      - "V-73635" # SC-08 SC-08(01) Requirement NA
+      - "V-73637" # SC-08 SC-08(01) Requirement NA
+      - "V-73643" # SC-08 SC-08(01) Requirement NA
+      - "V-73653" # SC-08 SC-08(01) Requirement NA
+      - "V-73655" # SC-08 SC-08(01) Requirement NA
+      - "V-73661" # SC-08 SC-08(01) Requirement NA
+      - "V-73663" # SC-08 SC-08(01) Requirement NA
+      - "V-73659" # SC-10 AC-12 Requirement NA
+      - "V-73387" # SC-10 Requirement NA
+      - "V-73689" # SC-10 Requirement NA
+      - "V-73273" # SC-28 SC-28(01) Requirement NA
+      - "V-73281" # SI-02(02) Requirement NA
+      - "V-73561" # SI-16 Requirement NA
+    <% end %>
