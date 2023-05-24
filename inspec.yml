@@ -13,27 +13,81 @@ depends:
     url: https://github.cms/mitre/microsoft-windows-server-2016-stig-baseline/archive/master.tar.gz
 
 inputs:
-#   - name: system_categorization
-#     desc: "Selected system baseline based on the environment variable"
-#     type: String
-#     value: <%= ENV['BASELINE'].nil? ? 'Moderate (Default)' : ENV['BASELINE'] %> 
+  - name: system_categorization
+    desc: "Selected system baseline based on the environment variable"
+    type: String
+    value: <%= ENV['BASELINE'].nil? ? 'Moderate (Default)' : ENV['BASELINE'] %>
 
-#   - name: org_name
-#     desc: "Name of the organization running this profile"
-#     type: string
-#     value: "CMS"
-#     profile: baseline-profile-name
+  - name: org_name
+    desc: "Name of the organization running this profile"
+    type: Hash
+    value:
+      acronym: "CMS"
+      full_form: "Centers for Medicare & Medicaid Services"
+    profile: microsoft-windows-server-2016-stig-baseline
 
-#     # Example input override
-#   - name: min_password_length # Baseline Control ID
-#     desc: "Minimum password length"
-#     type: Numeric
-#     <% if ['High-HVA', 'Moderate-HVA', 'Low-HVA'].include? ENV['BASELINE'] %>
-#     value: 20
-#     <% elsif ['High', 'Moderate', 'Low'].include? ENV['BASELINE'] || ENV['BASELINE'].nil? %>
-#     value: 15 # same as the baseline parameter (Feb 2023)
-#     <% end %>
-#     profile: baseline-profile-name
+  - name: temporary_account_period # V-73283
+    desc: "List the number of days that temporary accounts remain active for"
+    type: Numeric
+    profile: microsoft-windows-server-2016-stig-baseline
+    <% if ['High-HVA', 'Moderate-HVA', 'Low-HVA'].include? ENV['BASELINE'] %>
+    value: 0.5
+    <% elsif ENV['BASELINE'] == 'High' %>
+    value: 30
+    <% elsif ENV['BASELINE'] == 'Moderate' %>
+    value: 60
+    <% elsif ENV['BASELINE'].nil? %>
+    value: 60
+    <% end %>
+
+  - name: temporary_account_period_phrase # V-73283
+    desc: "List the number of hours/days that temporary accounts remain active for"
+    type: String
+    profile: microsoft-windows-server-2016-stig-baseline
+    <% if ['High-HVA', 'Moderate-HVA', 'Low-HVA'].include? ENV['BASELINE'] %>
+    value: "12 hours"
+    <% elsif ENV['BASELINE'] == 'High' %>
+    value: "30 days"
+    <% elsif ENV['BASELINE'] == 'Moderate' %>
+    value: "60 days"
+    <% elsif ENV['BASELINE'].nil? %>
+    value: "60 days"
+    <% end %>
+
+  - name: emergency_account_period # V-73285
+    desc: "List the number of days that temporary accounts remain active for"
+    type: Numeric
+    profile: microsoft-windows-server-2016-stig-baseline
+    <% if ['High-HVA', 'Moderate-HVA', 'Low-HVA'].include? ENV['BASELINE'] %>
+    value: 0.5
+    <% elsif ['High', 'Moderate'].include? ENV['BASELINE'] %>
+    value: 1
+    <% elsif ENV['BASELINE'].nil? %>
+    value: 1
+    <% end %>
+
+  - name: emergency_account_period_phrase # V-73285
+    desc: "List the number of hours/days that temporary accounts remain active for"
+    type: String
+    profile: microsoft-windows-server-2016-stig-baseline
+    <% if ['High-HVA', 'Moderate-HVA' 'Low-HVA'].include? ENV['BASELINE'] %>
+    value: "12 hours"
+    <% elsif ['High', 'Moderate'].include? ENV['BASELINE'] %>
+    value: "24 hours"
+    <% elsif ENV['BASELINE'].nil? %>
+    value: "24 hours"
+    <% end %>
+
+    
+  - name: min_password_length # Baseline Control ID
+    desc: "Minimum password length"
+    type: Numeric
+    <% if ['High-HVA', 'Moderate-HVA', 'Low-HVA'].include? ENV['BASELINE'] %>
+    value: 20
+    <% elsif ['High', 'Moderate', 'Low'].include? ENV['BASELINE'] || ENV['BASELINE'].nil? %>
+    value: 15 # same as the baseline parameter (Feb 2023)
+    <% end %>
+    profile: baseline-profile-name
 
   - name: overlay_controls
     desc: 'List of inapplicable controls/requirements in ARS 5.0 based on the system categorization'
