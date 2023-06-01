@@ -78,16 +78,152 @@ inputs:
     value: "24 hours"
     <% end %>
 
-    
-  - name: min_password_length # Baseline Control ID
-    desc: "Minimum password length"
+  - name: pass_lock_duration # V-73309
+    desc: "List the number of minutes for account lockout duration"
     type: Numeric
+    profile: microsoft-windows-server-2016-stig-baseline
+    <% if ['High-HVA', 'High'].include? ENV['BASELINE'] %>
+    value: 0
+    <% elsif ['Moderate-HVA', 'Moderate'].include? ENV['BASELINE'] %>
+    value: 60
+    <% elsif ['Low-HVA', 'Low'].include? ENV['BASELINE'] %>
+    value: 15
+    <% elsif ENV['BASELINE'].nil? %>
+    value: 60
+    <% end %>
+
+ - name: max_pass_lockout # V-73311
+    desc: "Account lockout threshold based on invalid logon attempts"
+    type: Numeric
+    profile: microsoft-windows-server-2016-stig-baseline
+    <% if ['High', 'High-HVA'].include? ENV['BASELINE'] %>
+    value: 3
+    <% elsif ['Moderate', 'Moderate-HVA', 'Low', 'Low-HVA'].include? ENV['BASELINE'] %>
+    value: 5
+    <% elsif ENV['BASELINE'].nil? %>
+    value: 5
+    <% end %>
+
+  - name: pass_lock_time # V-73313
+    desc: "List the number of minutes before a session is locked out"
+    type: Numeric
+    value: 120
+    profile: microsoft-windows-server-2016-stig-baseline
+
+  - name: pass_lock_duration # V-73309
+    desc: "List the number of minutes for account lockout duration"
+    type: Numeric
+    profile: microsoft-windows-server-2016-stig-baseline
+    <% if ['High-HVA', 'High'].include? ENV['BASELINE'] %>
+    value: 0
+    <% elsif ['Moderate-HVA', 'Moderate'].include? ENV['BASELINE'] %>
+    value: 60
+    <% elsif ['Low-HVA', 'Low'].include? ENV['BASELINE'] %>
+    value: 15
+    <% elsif ENV['BASELINE'].nil? %>
+    value: 60
+    <% end %>
+
+  - name: app_password_age # V-73231
+    desc: "Set the number of days that manually managed application account passwords must be changed"
+    type: Numeric
+    profile: microsoft-windows-server-2016-stig-baseline
+    <% if ['High-HVA', 'Moderate-HVA', 'Low-HVA'].include? ENV['BASELINE'] %>
+    value: 60
+    <% end %>
+ 
+  - name: maximum_password_age_machine # V-73641
+    desc: "Set the machine account maximum password age stated by your organiztion"
+    type: Numeric
+    profile: microsoft-windows-server-2016-stig-baseline
+    <% if ['High-HVA', 'Moderate-HVA', 'Low-HVA'].include? ENV['BASELINE'] %>
+    value: 60
+    <% end %>
+
+  - name: unused_account_age # V-73259
+    desc: "Set the maximum age in days for unused accounts stated by your organization"
+    type: Numeric
+    profile: microsoft-windows-server-2016-stig-baseline
+    <% if ['High-HVA', 'High'].include? ENV['BASELINE'] %>
+    value: 30
+    <% elsif ['Moderate-HVA', 'Moderate'].include? ENV['BASELINE'] %>
+    value: 60
+    <% elsif ENV['BASELINE'].nil? %>
+    value: 60
+    <% end %>
+
+  - name: minimum_password_length_manual # V-73229
+    desc: "Set the minimum password length for manually managed applications stated by your organization"
+    type: Numeric
+    profile: microsoft-windows-server-2016-stig-baseline
     <% if ['High-HVA', 'Moderate-HVA', 'Low-HVA'].include? ENV['BASELINE'] %>
     value: 20
-    <% elsif ['High', 'Moderate', 'Low'].include? ENV['BASELINE'] || ENV['BASELINE'].nil? %>
-    value: 15 # same as the baseline parameter (Feb 2023)
+    <% elsif ['High', 'Moderate', 'Low'].include? ENV['BASELINE'] %>
+    value: 15 # Same as the baseline parameter
+    <% elsif ENV['BASELINE'].nil? %>
+    value: 15
     <% end %>
-    profile: baseline-profile-name
+
+  - name: minimum_password_length # V-73321
+    desc: "Set the minimum password length stated by your organization"
+    type: Numeric
+    profile: microsoft-windows-server-2016-stig-baseline
+    <% if ['High-HVA', 'Moderate-HVA', 'Low-HVA'].include? ENV['BASELINE'] %>
+    value: 20
+    <% elsif ['High', 'Moderate', 'Low'].include? ENV['BASELINE'] %>
+    value: 15
+    <% elsif ENV['BASELINE'].nil? %>
+    value: 15
+    <% end %>  
+
+  # V-73319 minimum_password_age input value is the same as the baseline parameter of 1
+  # V-73317 maximum_password_age input value is the same as the baseline parameter of 60
+  
+  - name: password_history_size # V-73315
+    desc: "Set the password history size stated by your organization"
+    type: Numeric
+    profile: microsoft-windows-server-2016-stig-baseline
+    <% if ['High-HVA', 'Moderate-HVA', 'Low-HVA'].include? ENV['BASELINE'] %>
+    value: 24 # Max value to disallow password reuse
+    <% end %>
+
+  - name: maximum_idle_time #  V-73387
+    desc: "Set the maximum connection idle time stated by your organization"
+    type: Numeric
+    profile: microsoft-windows-server-2016-stig-baseline
+    <% if ['High-HVA', 'High', 'Moderate-HVA', 'Moderate'].include? ENV['BASELINE'] %>
+    value: 1800
+    <% elsif ENV['BASELINE'].nil? %>
+    value: 1800
+    <% end %>
+
+  - name: maximum_idle_time_phrase #  V-73387
+    desc: "Set the maximum connection idle time stated by your organization"
+    type: String
+    profile: microsoft-windows-server-2016-stig-baseline
+    <% if ['High-HVA', 'High', 'Moderate-HVA', 'Moderate'].include? ENV['BASELINE'] %>
+    value: "30 minutes"
+    <% elsif ENV['BASELINE'].nil? %>
+    value: "30 minutes"
+    <% end %>
+
+  - name: LegalNoticeText # V-73647
+    type: string
+    profile: microsoft-windows-server-2016-stig-baseline
+    value: "* This warning banner provides privacy and security notices consistent with applicable federal laws, directives, and other federal guidance for accessing this Government system, which includes (1) this computer network, (2) all computers connected to this network, and (3) all devices and storage media attached to this network or to a computer on this network.
+    * This system is provided for Government authorized use only.
+    * Unauthorized or improper use of this system is prohibited and may result in disciplinary action and/or civil and criminal penalties.
+    * Personal use of social media and networking sites on this system is limited as to not interfere with official work duties and is subject to monitoring.
+    * By using this system, you understand and consent to the following:  - The Government may monitor, record, and audit your system usage, including usage of personal devices and email systems for official duties or to conduct HHS business. Therefore, you have no reasonable expectation of privacy regarding any communication or data transiting or stored on this system. At any time, and for any lawful Government purpose, the government may monitor, intercept, and search and seize any communication or data transiting or stored on this system.  - Any communication or data transiting or stored on this system may be disclosed or used for any lawful Government purposes."
+
+  - name: LegalNoticeCaption # V-73649
+    desc: "Use the default values or add an organization-defined legal notice caption"
+    type: Array
+    value:
+      - "CMS Notice and Consent Banner"
+      - "US Department of Health and Human Services Warning Statement"
+    profile: microsoft-windows-server-2016-stig-baseline
+
 
   - name: overlay_controls
     desc: 'List of inapplicable controls/requirements in ARS 5.0 based on the system categorization'
