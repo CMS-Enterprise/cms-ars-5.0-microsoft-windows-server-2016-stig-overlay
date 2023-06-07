@@ -10,7 +10,7 @@ inspec_version: ">= 4.0"
 
 depends:
   - name: microsoft-windows-server-2016-stig-baseline
-    url: https://github.cms/mitre/microsoft-windows-server-2016-stig-baseline/archive/master.tar.gz
+    url: https://github.com/mitre/microsoft-windows-server-2016-stig-baseline/archive/parameterize.tar.gz
 
 inputs:
   - name: system_categorization
@@ -92,7 +92,7 @@ inputs:
     value: 60
     <% end %>
 
- - name: max_pass_lockout # V-73311
+  - name: max_pass_lockout # V-73311
     desc: "Account lockout threshold based on invalid logon attempts"
     type: Numeric
     profile: microsoft-windows-server-2016-stig-baseline

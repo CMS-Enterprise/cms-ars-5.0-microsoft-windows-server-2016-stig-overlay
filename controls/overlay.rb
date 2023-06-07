@@ -38,7 +38,7 @@ include_controls 'microsoft-windows-server-2016-stig-baseline' do
 
 
   ## SEMANTIC
-  Control 'V-73605' do
+  control 'V-73605' do
     desc  'check', 'Verify the CMS Root CA certificates are installed in the Trusted Root Store.'
     desc 'fix', 'Install the CMS Root CA certificates.'
 
@@ -47,7 +47,7 @@ include_controls 'microsoft-windows-server-2016-stig-baseline' do
     end
   end
 
-  Control 'V-73607' do
+  control 'V-73607' do
     desc  "check", "This is applicable to unclassified systems. It is NA for others.
     Verify that the CMS Interoperability Root Certificate Authority (CA) cross-certificates is installed in the Untrusted Certificates Store on unclassified systems."
     desc "fix", "Install the CMS Interoperability Root CA cross-certificates in the Untrusted Certificates Store on Unclassified systems."
@@ -57,7 +57,7 @@ include_controls 'microsoft-windows-server-2016-stig-baseline' do
     end
   end
   
-  Control 'V-73609' do
+  control 'V-73609' do
     impact 0.0
     desc "caveat", "Not applicable for this CMS ARS 5.0 overlay, since the US DoD CCEB is not applicable to CMS"
     describe "Not applicable for this CMS ARS 5.0 overlay, since the US DoD CCEB is not applicable to CMS" do 
@@ -65,22 +65,20 @@ include_controls 'microsoft-windows-server-2016-stig-baseline' do
     end
   end
 
-  Control 'V-73613' do
+  control 'V-73613' do
     desc  'check', 'This applies to domain controllers. It is NA for other systems'
     desc 'fix', 'Obtain a server certificate for the domain controller issued by the CMS PKI or an approved ECA.'
 
-    describe "For this CMS ARS 5.0 overlay, this control must be reviewed manually" 
-    do 
+    describe "For this CMS ARS 5.0 overlay, this control must be reviewed manually" do 
       skip "For this CMS ARS 5.0 overlay, this control must be reviewed manually"
     end
   end
 
-  Control 'V-73615' do
+  control 'V-73615' do
     desc  'check', 'This applies to domain controllers. It is NA for other systems'
     desc 'fix', 'Map user accounts to PKI certificates using the appropriate User Principal Name (UPN) for the network. See PKE documentation for details.'
 
-    describe "For this CMS ARS 5.0 overlay, this control must be reviewed manually" 
-    do 
+    describe "For this CMS ARS 5.0 overlay, this control must be reviewed manually" do 
       skip "For this CMS ARS 5.0 overlay, this control must be reviewed manually"
     end
   end
