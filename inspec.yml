@@ -110,20 +110,6 @@ inputs:
     value: 120
     profile: microsoft-windows-server-2016-stig-baseline
 
-  - name: pass_lock_duration # V-73309
-    desc: "List the number of minutes for account lockout duration"
-    type: Numeric
-    profile: microsoft-windows-server-2016-stig-baseline
-    <% if ['High-HVA', 'High'].include? ENV['BASELINE'] %>
-    value: 0
-    <% elsif ['Moderate-HVA', 'Moderate'].include? ENV['BASELINE'] %>
-    value: 60
-    <% elsif ['Low-HVA', 'Low'].include? ENV['BASELINE'] %>
-    value: 15
-    <% elsif ENV['BASELINE'].nil? %>
-    value: 60
-    <% end %>
-
   - name: app_password_age # V-73231
     desc: "Set the number of days that manually managed application account passwords must be changed"
     type: Numeric
@@ -192,9 +178,9 @@ inputs:
     type: Numeric
     profile: microsoft-windows-server-2016-stig-baseline
     <% if ['High-HVA', 'High', 'Moderate-HVA', 'Moderate'].include? ENV['BASELINE'] %>
-    value: 1800
+    value: 30
     <% elsif ENV['BASELINE'].nil? %>
-    value: 1800
+    value: 30
     <% end %>
 
   - name: maximum_idle_time_phrase #  V-73387
@@ -207,7 +193,7 @@ inputs:
     value: "30 minutes"
     <% end %>
 
-  - name: LegalNoticeText # V-73647
+  - name: legal_notice_text # V-73647
     type: string
     profile: microsoft-windows-server-2016-stig-baseline
     value: "* This warning banner provides privacy and security notices consistent with applicable federal laws, directives, and other federal guidance for accessing this Government system, which includes (1) this computer network, (2) all computers connected to this network, and (3) all devices and storage media attached to this network or to a computer on this network.
@@ -216,7 +202,7 @@ inputs:
     * Personal use of social media and networking sites on this system is limited as to not interfere with official work duties and is subject to monitoring.
     * By using this system, you understand and consent to the following:  - The Government may monitor, record, and audit your system usage, including usage of personal devices and email systems for official duties or to conduct HHS business. Therefore, you have no reasonable expectation of privacy regarding any communication or data transiting or stored on this system. At any time, and for any lawful Government purpose, the government may monitor, intercept, and search and seize any communication or data transiting or stored on this system.  - Any communication or data transiting or stored on this system may be disclosed or used for any lawful Government purposes."
 
-  - name: LegalNoticeCaption # V-73649
+  - name: legal_notice_caption # V-73649
     desc: "Use the default values or add an organization-defined legal notice caption"
     type: Array
     value:
@@ -253,6 +239,7 @@ inputs:
       - "V-73373" # AC-06(10) Requirement NA
       - "V-73375" # AC-06(10) Requirement NA
       - "V-73377" # AC-06(10) Requirement NA
+      - "V-73387" # SC-10 Requirement NA
       - "V-73677" # AC-06(10) Requirement NA
       - "V-73729" # AC-06(10) Requirement NA
       - "V-73735" # AC-06(10) Requirement NA
